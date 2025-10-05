@@ -7,7 +7,6 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Vardan Keshishyan',
   description: '',
-  generator: '',
 }
 
 export default function RootLayout({
