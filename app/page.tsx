@@ -14,7 +14,7 @@ export default function Home() {
       image:
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/492624444-928c45b1-f80e-4fe8-9046-1339a43e5e2a-xt1hbxdoKwTxuaHXe7FwA4HsqgPxGU.png",
       tags: ["Python", "Django", "Finance", "Data Visualization"],
-      link: "https://quant-visualizer.vercel.app/",
+      link: "https://quant-visualizer.vardan.app/",
       external: true,
     },
     {
