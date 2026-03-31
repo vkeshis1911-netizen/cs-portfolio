@@ -1,11 +1,36 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Github, Linkedin, Mail, ExternalLink, ArrowRight } from "lucide-react"
+import { Github, Linkedin, Mail, ExternalLink, ArrowRight, Download, Globe, Braces } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 export default function Home() {
+  const groupProjects = [
+    {
+      title: "LiveLectureAI",
+      description:
+        "A collaborative full-stack platform deployed live, built by the team for real users and real workflows.",
+      tags: ["Group Project", "Live Demo", "Full Stack"],
+      image: "/live-lecture-ai.png",
+      link: "https://leclive-prodject.onrender.com/",
+      external: true,
+      cta: "Open Website",
+      type: "website",
+    },
+    {
+      title: "RecipeRecommendation",
+      description:
+        "A personalized recipe discovery experience that recommends dishes from available ingredients and user preferences.",
+      tags: ["Group Project", "Recommendations", "Full Stack"],
+      image: "/recipe-recommendation.png",
+      link: "/projects/recipe-recommendation",
+      external: false,
+      cta: "View Project Page",
+      type: "page",
+    },
+  ]
+
   const completedProjects = [
     {
       title: "Quant Visualizer",
@@ -39,69 +64,55 @@ export default function Home() {
     },
   ]
 
-  const upcomingProjects = [
-    {
-      title: "DeepfakeDetector",
-      description:
-        "AI-powered system to detect and analyze deepfake videos using advanced machine learning techniques.",
-      image: "/deepfake-detection-ai-neural-network.jpg",
-      tags: ["Python", "TensorFlow", "Computer Vision", "AI"],
-      status: "In Development",
-    },
-    {
-      title: "Unbeatable Checkers",
-      description:
-        "Implementation of minimax algorithm with alpha-beta pruning to create an unbeatable checkers Bot opponent.",
-      image: "/checkers-game-board-ai-strategy.jpg",
-      tags: ["Python", "Game Theory", "Algorithms"],
-      status: "Planning",
-    },
-    {
-      title: "CameraMind",
-      description:
-        "AI system that understands the world using cameras, processing visual information to make intelligent decisions.",
-      image: "/ai-camera-vision-understanding-world.jpg",
-      tags: ["Python", "AI", "Computer Vision", "Deep Learning"],
-      status: "Research Phase",
-    },
-  ]
-
   const skills = [
-    "C++",
-    "Python",
-    "Java",
-    "R",
-    "JavaScript",
-    "HTML/CSS",
-    "MySQL",
-    "SQLite",
-    "AWS",
-    "DigitalOcean",
-    "Django",
-    "FastAPI",
-    "Git",
-    "RESTful API",
+    { name: "C++", icon: "cpp" },
+    { name: "Python", icon: "python" },
+    { name: "Java", icon: "java" },
+    { name: "R", icon: "r" },
+    { name: "JavaScript", icon: "javascript" },
+    { name: "HTML/CSS", icon: "html" },
+    { name: "MySQL", icon: "mysql" },
+    { name: "SQLite", icon: "sqlite" },
+    { name: "AWS", icon: "aws" },
+    { name: "DigitalOcean", icon: "", logoUrl: "https://cdn.simpleicons.org/digitalocean/0080FF" },
+    { name: "Django", icon: "django" },
+    { name: "FastAPI", icon: "fastapi" },
+    { name: "Git", icon: "git" },
+    { name: "Figma", icon: "figma" },
+    { name: "RESTful API", icon: "" },
   ]
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-sm border-b border-border">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="text-xl font-bold text-primary">
               VK
             </Link>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 md:gap-6">
               <Link href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 About
               </Link>
+              <Link
+                href="#group-projects"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                Group Projects
+              </Link>
               <Link href="#projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                Projects
+                My Projects
               </Link>
               <Link href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 Contact
               </Link>
+              <Button asChild size="sm" className="hidden sm:inline-flex">
+                <a href="/resume.pdf" download="Vardan's__Resume__.pdf">
+                  <Download className="mr-2 h-4 w-4" />
+                  Resume
+                </a>
+              </Button>
             </div>
           </div>
         </div>
@@ -122,14 +133,20 @@ export default function Home() {
                 building innovative solutions in quantitative finance, computer vision, and AI. Previously a Research
                 Assistant at <span className="text-primary">Caltech</span>.
               </p>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg">
-                  <Link href="#projects">
+                  <Link href="#group-projects">
                     View My Work <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
                   <Link href="#contact">Get In Touch</Link>
+                </Button>
+                <Button asChild variant="secondary" size="lg">
+                  <a href="/resume.pdf" download="Vardan's__Resume__.pdf">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download Resume
+                  </a>
                 </Button>
               </div>
             </div>
@@ -148,10 +165,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Completed Projects Section */}
+      {/* Group Projects Section */}
+      <section id="group-projects" className="py-20 px-6 bg-card/20">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-3xl font-bold mb-4 text-center">Group Projects</h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Team-built projects with a live website and a dedicated project explanation page.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {groupProjects.map((project) => (
+              <Link
+                key={project.title}
+                href={project.link}
+                target={project.external ? "_blank" : undefined}
+                rel={project.external ? "noopener noreferrer" : undefined}
+                className="block"
+              >
+                <Card className="group h-full overflow-hidden hover:border-primary transition-all duration-300 cursor-pointer">
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={project.image || "/placeholder.svg"}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardHeader>
+                    <div className="mb-2 h-11 w-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                      {project.type === "website" ? (
+                        <Globe className="h-5 w-5" />
+                      ) : project.type === "github" ? (
+                        <Github className="h-5 w-5" />
+                      ) : (
+                        <Braces className="h-5 w-5" />
+                      )}
+                    </div>
+                    <CardTitle className="flex items-center justify-between gap-4">
+                      <span>{project.title}</span>
+                      {project.external ? (
+                        <ExternalLink className="h-4 w-4 text-primary shrink-0" />
+                      ) : (
+                        <ArrowRight className="h-4 w-4 text-primary shrink-0" />
+                      )}
+                    </CardTitle>
+                    <CardDescription>{project.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-[10px] px-2 py-0.5">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    <p className="text-sm text-primary font-medium inline-flex items-center">
+                      {project.cta}
+                      {project.external ? (
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      ) : (
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      )}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* My Projects Section */}
       <section id="projects" className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold mb-4 text-center">Completed Projects</h2>
+          <h2 className="text-3xl font-bold mb-4 text-center">My Projects</h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             A showcase of my recent work in quantitative finance, computer vision, and web technologies.
           </p>
@@ -161,6 +247,7 @@ export default function Home() {
                 key={project.title}
                 href={project.link}
                 target={project.external ? "_blank" : undefined}
+                rel={project.external ? "noopener noreferrer" : undefined}
                 className="block"
               >
                 <Card className="group hover:border-primary transition-all duration-300 h-full cursor-pointer">
@@ -199,46 +286,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Upcoming Projects Section */}
-      <section className="py-20 px-6 bg-card/30">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold mb-4 text-center">Upcoming Projects</h2>
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Exciting projects currently in development, exploring AI, game theory, and computer vision.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {upcomingProjects.map((project) => (
-              <Card key={project.title} className="border-dashed">
-                <div className="relative h-48 overflow-hidden rounded-t-lg">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    fill
-                    className="object-cover opacity-60"
-                  />
-                </div>
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <Badge variant="secondary">{project.status}</Badge>
-                  </div>
-                  <CardTitle>{project.title}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* About Section */}
       <section id="about" className="py-20 px-6 bg-card/30">
         <div className="container mx-auto max-w-6xl">
@@ -250,12 +297,12 @@ export default function Home() {
                 <div>
                   <h4 className="font-semibold">University of California, Irvine</h4>
                   <p className="text-muted-foreground">Computer Science Major</p>
-                  <p className="text-sm text-muted-foreground">GPA: 3.34 | Sep 2024 - Jun 2026</p>
+                  <p className="text-sm text-muted-foreground">Sep 2024 - Jun 2026</p>
                 </div>
                 <div>
                   <h4 className="font-semibold">Glendale Community College</h4>
                   <p className="text-muted-foreground">Computer Science Major</p>
-                  <p className="text-sm text-muted-foreground">GPA: 3.92 | President of Robotics Club</p>
+                  <p className="text-sm text-muted-foreground">President of Robotics Club</p>
                 </div>
               </div>
             </div>
@@ -281,11 +328,29 @@ export default function Home() {
           </div>
           <div className="mt-12">
             <h3 className="text-xl font-semibold mb-4 text-primary">Skills & Technologies</h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {skills.map((skill) => (
-                <Badge key={skill} variant="secondary" className="text-sm">
-                  {skill}
-                </Badge>
+                <div
+                  key={skill.name}
+                  className="group rounded-xl border border-border bg-background px-4 py-3 transition-all duration-300 hover:border-primary/50 hover:shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-lg border border-border bg-muted flex items-center justify-center shrink-0">
+                        {skill.logoUrl ? (
+                          <img src={skill.logoUrl} alt={`${skill.name} logo`} className="h-6 w-6 object-contain" />
+                        ) : skill.icon ? (
+                          <img
+                            src={`https://skillicons.dev/icons?i=${skill.icon}`}
+                            alt={`${skill.name} logo`}
+                          className="h-6 w-6 object-contain"
+                        />
+                      ) : (
+                        <Braces className="h-5 w-5 text-muted-foreground" />
+                      )}
+                    </div>
+                    <p className="text-sm font-medium">{skill.name}</p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -335,10 +400,7 @@ export default function Home() {
               <Linkedin className="h-6 w-6" />
               <span className="sr-only">LinkedIn</span>
             </a>
-            <a
-              href="mailto:vardankeshishyan1@gmail.com"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
+            <a href="mailto:vardankeshishyan1@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
               <Mail className="h-6 w-6" />
               <span className="sr-only">Email</span>
             </a>
@@ -350,13 +412,13 @@ export default function Home() {
       <footer className="py-8 px-6 border-t border-border">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">© 2025 Vardan Keshishyan. Built with Next.js</p>
+            <p className="text-sm text-muted-foreground">© 2026 Vardan Keshishyan.</p>
             <div className="flex gap-4">
               <Link href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 About
               </Link>
               <Link href="#projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                Projects
+                My Projects
               </Link>
               <Link href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 Contact
