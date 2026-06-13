@@ -318,7 +318,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4 className="font-semibold">Math Tutor</h4>
-                  <p className="text-muted-foreground">GCC Learning Center | Jan 2022 - Jul 2024</p>
+                  <p className="text-muted-foreground">GCC Learning Center | Aug 2022 - Jul 2024</p>
                   <p className="text-sm text-muted-foreground mt-2">
                     Delivered personalized math tutoring and developed educational materials for students.
                   </p>
