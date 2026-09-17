@@ -6,6 +6,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 
 export default function Home() {
+  const mostRecentProject = {
+    title: "BladeForge",
+    description:
+      "An open-source synthetic data generation tool for building customizable 3D environments and AI training datasets.",
+    tags: ["Open Source", "Synthetic Data", "AI", "Computer Vision", "3D"],
+    image: "/bladeforge-logo.png",
+    link: "https://bladeforge.vardan.app/",
+  }
+
   const groupProjects = [
     {
       title: "LiveLectureAI",
@@ -96,6 +105,12 @@ export default function Home() {
                 About
               </Link>
               <Link
+                href="#recent-project"
+                className="hidden md:inline text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                Recent Project
+              </Link>
+              <Link
                 href="#group-projects"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
@@ -126,16 +141,16 @@ export default function Home() {
               <p className="text-primary text-sm font-mono mb-4">Hi, my name is</p>
               <h1 className="text-5xl md:text-6xl font-bold mb-4 text-balance">Vardan Keshishyan</h1>
               <h2 className="text-3xl md:text-4xl font-bold text-muted-foreground mb-6 text-balance">
-                Computer Science Student & Developer
+                AI Master's Student & Developer
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                I'm a Computer Science student at <span className="text-primary">UC Irvine</span>, passionate about
-                building innovative solutions in quantitative finance, computer vision, and AI. Previously a Research
-                Assistant at <span className="text-primary">Caltech</span>.
+                I'm pursuing a master's in Artificial Intelligence at{" "}
+                <span className="text-primary">the University of Pennsylvania</span>, passionate about building
+                innovative solutions in quantitative finance, computer vision, and AI.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg">
-                  <Link href="#group-projects">
+                  <Link href="#recent-project">
                     View My Work <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -165,8 +180,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Most Recent Project Section */}
+      <section id="recent-project" className="py-20 px-6 bg-card/20">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-3xl font-bold mb-4 text-center">My Most Recent Project</h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            The newest project I'm currently featuring from my recent work.
+          </p>
+          <a href={mostRecentProject.link} target="_blank" rel="noopener noreferrer" className="block max-w-4xl mx-auto">
+            <Card className="group overflow-hidden hover:border-primary transition-all duration-300 cursor-pointer">
+              <div className="grid md:grid-cols-[0.9fr_1.1fr]">
+                <div className="relative min-h-64 bg-muted flex items-center justify-center overflow-hidden">
+                  <Image
+                    src={mostRecentProject.image || "/placeholder.svg"}
+                    alt={mostRecentProject.title}
+                    fill
+                    className="object-contain p-10 group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <CardHeader>
+                    <div className="mb-2 h-11 w-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                      <Braces className="h-5 w-5" />
+                    </div>
+                    <CardTitle className="flex items-center justify-between gap-4 text-2xl">
+                      <span>{mostRecentProject.title}</span>
+                      <ExternalLink className="h-4 w-4 text-primary shrink-0" />
+                    </CardTitle>
+                    <CardDescription>{mostRecentProject.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex flex-wrap gap-2">
+                      {mostRecentProject.tags.map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    <p className="text-sm text-primary font-medium inline-flex items-center">
+                      Open Project <ExternalLink className="ml-2 h-4 w-4" />
+                    </p>
+                  </CardContent>
+                </div>
+              </div>
+            </Card>
+          </a>
+        </div>
+      </section>
+
       {/* Group Projects Section */}
-      <section id="group-projects" className="py-20 px-6 bg-card/20">
+      <section id="group-projects" className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold mb-4 text-center">Group Projects</h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -295,9 +358,14 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-4 text-primary">Education</h3>
               <div className="space-y-4">
                 <div>
+                  <h4 className="font-semibold">University of Pennsylvania</h4>
+                  <p className="text-muted-foreground">M.S. in Engineering in Artificial Intelligence</p>
+                  <p className="text-sm text-muted-foreground">Aug 2026 - Present</p>
+                </div>
+                <div>
                   <h4 className="font-semibold">University of California, Irvine</h4>
-                  <p className="text-muted-foreground">Computer Science Major</p>
-                  <p className="text-sm text-muted-foreground">Sep 2024 - Jun 2026</p>
+                  <p className="text-muted-foreground">B.S. in Computer Science</p>
+                  <p className="text-sm text-muted-foreground">Completed June 2026</p>
                 </div>
                 <div>
                   <h4 className="font-semibold">Glendale Community College</h4>
@@ -310,14 +378,32 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-4 text-primary">Experience</h3>
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold">Research Assistant</h4>
-                  <p className="text-muted-foreground">Caltech | July 2024 - Oct 2024</p>
+                  <h4 className="font-semibold">Software Developer</h4>
+                  <p className="text-muted-foreground">
+                    American Verification Processing Solutions | July 2026 - Present
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Develop production software for merchant batch and chargeback data workflows across bank-specific
+                    parsing, validation, previews, and CRM submission.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold">Software Engineer</h4>
+                  <p className="text-muted-foreground">Bizskip | Feb 2026 - May 2026</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Built React and Next.js workflows for local business discovery, waitlists, provider listings, and
+                    dashboards.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold">Research Computing Assistant</h4>
+                  <p className="text-muted-foreground">Caltech | July 2024 - Sept 2024</p>
                   <p className="text-sm text-muted-foreground mt-2">
                     Maintained research IT systems, optimized CMS performance, and managed Data Center operations.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold">Math Tutor</h4>
+                  <h4 className="font-semibold">Data Structures & Linear Algebra Tutor</h4>
                   <p className="text-muted-foreground">GCC Learning Center | Aug 2022 - Jul 2024</p>
                   <p className="text-sm text-muted-foreground mt-2">
                     Delivered personalized math tutoring and developed educational materials for students.
