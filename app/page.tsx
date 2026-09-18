@@ -12,7 +12,7 @@ export default function Home() {
       "An open-source synthetic data generation tool for building customizable 3D environments and AI training datasets.",
     tags: ["Open Source", "Synthetic Data", "AI", "Computer Vision", "3D"],
     image: "/bladeforge-logo.png",
-    link: "https://bladeforge.vardan.app/",
+    link: "https://bladeforge.vardan.app/#showcase",
   }
 
   const groupProjects = [
