@@ -4,6 +4,7 @@ import { Github, Linkedin, Mail, ExternalLink, ArrowRight, Download, Globe, Brac
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { PortraitCoin } from "@/components/portrait-coin"
 
 export default function Home() {
   const mostRecentProject = {
@@ -166,15 +167,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center">
-              <div className="relative w-80 h-80 rounded-full overflow-hidden border-4 border-primary shadow-2xl shadow-primary/20">
-                <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1728793790224%20%281%29-sEJALVp9l2bPq1dOlT89Ae5wybGVFq.jpg"
-                  alt="Vardan Keshishyan"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+              <PortraitCoin />
             </div>
           </div>
         </div>
