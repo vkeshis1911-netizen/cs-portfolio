@@ -6,7 +6,8 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Vardan Keshishyan',
-  description: '',
+  description:
+    "Portfolio of Vardan Keshishyan, an AI master's student at the University of Pennsylvania building software in machine learning, computer vision, and quantitative finance.",
 }
 
 export default function RootLayout({

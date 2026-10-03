@@ -1,10 +1,53 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Github, Linkedin, Mail, ExternalLink, ArrowRight, Download, Globe, Braces } from "lucide-react"
+import {
+  Github,
+  Linkedin,
+  Mail,
+  ExternalLink,
+  ArrowRight,
+  Download,
+  Globe,
+  Braces,
+  Briefcase,
+  GraduationCap,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { PortraitCoin } from "@/components/portrait-coin"
+import { NeuralPortrait } from "@/components/neural-portrait"
+import { FocusTicker } from "@/components/focus-ticker"
+
+type TimelineItem = { title: string; subtitle: string; date: string; description?: string }
+
+const cardHover =
+  "group cursor-pointer shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/10"
+const iconTile =
+  "h-10 w-10 shrink-0 rounded-xl border border-brand/20 bg-brand/10 text-brand flex items-center justify-center"
+const tagStyle = "font-mono text-[11px] font-normal text-muted-foreground bg-background"
+const ctaStyle = "text-sm font-medium inline-flex items-center text-foreground group-hover:text-brand transition-colors"
+
+function SectionHeading({
+  index,
+  eyebrow,
+  title,
+  description,
+}: {
+  index: string
+  eyebrow: string
+  title: string
+  description?: string
+}) {
+  return (
+    <div className="mb-12 text-center">
+      <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-brand">
+        {index} <span className="text-muted-foreground/50">/</span> {eyebrow}
+      </p>
+      <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{title}</h2>
+      {description && <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{description}</p>}
+    </div>
+  )
+}
 
 export default function Home() {
   const mostRecentProject = {
@@ -79,7 +122,7 @@ export default function Home() {
     { name: "Python", icon: "python" },
     { name: "Java", icon: "java" },
     { name: "R", icon: "r" },
-    { name: "JavaScript", icon: "javascript" },
+    { name: "TensorFlow", icon: "tensorflow" },
     { name: "HTML/CSS", icon: "html" },
     { name: "MySQL", icon: "mysql" },
     { name: "SQLite", icon: "sqlite" },
@@ -92,37 +135,83 @@ export default function Home() {
     { name: "RESTful API", icon: "" },
   ]
 
+  const education: TimelineItem[] = [
+    {
+      title: "University of Pennsylvania",
+      subtitle: "M.S. in Engineering in Artificial Intelligence",
+      date: "Aug 2026 - Present",
+    },
+    {
+      title: "University of California, Irvine",
+      subtitle: "B.S. in Computer Science",
+      date: "Completed June 2026",
+    },
+    {
+      title: "Glendale Community College",
+      subtitle: "Computer Science Major",
+      date: "President of Robotics Club",
+    },
+  ]
+
+  const experience: TimelineItem[] = [
+    {
+      title: "Software Developer",
+      subtitle: "American Verification Processing Solutions",
+      date: "July 2026 - Present",
+      description:
+        "Develop production software for merchant batch and chargeback data workflows across bank-specific parsing, validation, previews, and CRM submission.",
+    },
+    {
+      title: "Software Engineer",
+      subtitle: "Bizskip",
+      date: "Feb 2026 - May 2026",
+      description:
+        "Built React and Next.js workflows for local business discovery, waitlists, provider listings, and dashboards.",
+    },
+    {
+      title: "Research Computing Assistant",
+      subtitle: "Caltech",
+      date: "July 2024 - Sept 2024",
+      description: "Maintained research IT systems, optimized CMS performance, and managed Data Center operations.",
+    },
+    {
+      title: "Data Structures & Linear Algebra Tutor",
+      subtitle: "GCC Learning Center",
+      date: "Aug 2022 - Jul 2024",
+      description: "Delivered personalized math tutoring and developed educational materials for students.",
+    },
+  ]
+
+  const navLinks = [
+    { href: "#about", label: "About" },
+    { href: "#recent-project", label: "Featured", desktopOnly: true },
+    { href: "#group-projects", label: "Team Projects" },
+    { href: "#projects", label: "Projects" },
+    { href: "#contact", label: "Contact" },
+  ]
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-sm border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/70">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="text-xl font-bold text-primary">
-              VK
+            <Link href="/" className="flex items-center gap-2.5">
+              <span className="grid h-8 w-8 place-items-center rounded-lg bg-foreground font-mono text-xs font-semibold text-background">
+                VK
+              </span>
+              <span className="hidden lg:inline text-sm font-semibold tracking-tight">Vardan Keshishyan</span>
             </Link>
             <div className="flex items-center gap-4 md:gap-6">
-              <Link href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                About
-              </Link>
-              <Link
-                href="#recent-project"
-                className="hidden md:inline text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                Recent Project
-              </Link>
-              <Link
-                href="#group-projects"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                Group Projects
-              </Link>
-              <Link href="#projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                My Projects
-              </Link>
-              <Link href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                Contact
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`${link.desktopOnly ? "hidden md:inline" : ""} text-sm text-muted-foreground hover:text-foreground transition-colors`}
+                >
+                  {link.label}
+                </Link>
+              ))}
               <Button asChild size="sm" className="hidden sm:inline-flex">
                 <a href="/resume.pdf" download="Vardan's__Resume__.pdf">
                   <Download className="mr-2 h-4 w-4" />
@@ -135,19 +224,20 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-6xl">
+      <section className="relative overflow-hidden pt-32 pb-24 px-6">
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-60 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
+        <div className="relative container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-primary text-sm font-mono mb-4">Hi, my name is</p>
-              <h1 className="text-5xl md:text-6xl font-bold mb-4 text-balance">Vardan Keshishyan</h1>
-              <h2 className="text-3xl md:text-4xl font-bold text-muted-foreground mb-6 text-balance">
+              <FocusTicker />
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4 text-balance">Vardan Keshishyan</h1>
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-muted-foreground mb-6 text-balance">
                 AI Master's Student & Developer
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                 I'm pursuing a master's in Artificial Intelligence at{" "}
-                <span className="text-primary">the University of Pennsylvania</span>, passionate about building
-                innovative solutions in quantitative finance, computer vision, and AI.
+                <span className="font-medium text-foreground">the University of Pennsylvania</span>, passionate about
+                building innovative solutions in quantitative finance, computer vision, and AI.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg">
@@ -165,25 +255,52 @@ export default function Home() {
                   </a>
                 </Button>
               </div>
+              <div className="mt-8 flex items-center gap-5 text-sm text-muted-foreground">
+                <a
+                  href="https://github.com/VardanKeshishyan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-foreground transition-colors"
+                >
+                  <Github className="h-4 w-4" /> GitHub
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/vardan-keshishyan-9734961b5/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-foreground transition-colors"
+                >
+                  <Linkedin className="h-4 w-4" /> LinkedIn
+                </a>
+                <a
+                  href="mailto:vardankeshishyan1@gmail.com"
+                  className="inline-flex items-center gap-2 hover:text-foreground transition-colors"
+                >
+                  <Mail className="h-4 w-4" /> Email
+                </a>
+              </div>
             </div>
-            <div className="flex justify-center">
-              <PortraitCoin />
+            <div className="relative flex justify-center">
+              <div className="pointer-events-none absolute inset-8 rounded-full bg-brand/20 blur-3xl" />
+              <NeuralPortrait />
             </div>
           </div>
         </div>
       </section>
 
       {/* Most Recent Project Section */}
-      <section id="recent-project" className="py-20 px-6 bg-card/20">
+      <section id="recent-project" className="py-24 px-6 border-y border-border/70 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold mb-4 text-center">My Most Recent Project</h2>
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            The newest project I'm currently featuring from my recent work.
-          </p>
+          <SectionHeading
+            index="01"
+            eyebrow="Latest work"
+            title="Featured Project"
+            description="The newest project I'm currently featuring from my recent work."
+          />
           <a href={mostRecentProject.link} target="_blank" rel="noopener noreferrer" className="block max-w-4xl mx-auto">
-            <Card className="group overflow-hidden hover:border-primary transition-all duration-300 cursor-pointer">
+            <Card className={`${cardHover} overflow-hidden py-0`}>
               <div className="grid md:grid-cols-[0.9fr_1.1fr]">
-                <div className="relative min-h-64 bg-muted flex items-center justify-center overflow-hidden">
+                <div className="relative min-h-64 bg-muted/60 flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-border">
                   <Image
                     src={mostRecentProject.image || "/placeholder.svg"}
                     alt={mostRecentProject.title}
@@ -191,26 +308,26 @@ export default function Home() {
                     className="object-contain p-10 group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center gap-6 py-8">
                   <CardHeader>
-                    <div className="mb-2 h-11 w-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                    <div className={iconTile}>
                       <Braces className="h-5 w-5" />
                     </div>
                     <CardTitle className="flex items-center justify-between gap-4 text-2xl">
                       <span>{mostRecentProject.title}</span>
-                      <ExternalLink className="h-4 w-4 text-primary shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-brand transition-colors shrink-0" />
                     </CardTitle>
-                    <CardDescription>{mostRecentProject.description}</CardDescription>
+                    <CardDescription className="leading-relaxed">{mostRecentProject.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex flex-wrap gap-2">
                       {mostRecentProject.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs">
+                        <Badge key={tag} variant="outline" className={tagStyle}>
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    <p className="text-sm text-primary font-medium inline-flex items-center">
+                    <p className={ctaStyle}>
                       Open Project <ExternalLink className="ml-2 h-4 w-4" />
                     </p>
                   </CardContent>
@@ -222,12 +339,14 @@ export default function Home() {
       </section>
 
       {/* Group Projects Section */}
-      <section id="group-projects" className="py-20 px-6">
+      <section id="group-projects" className="py-24 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold mb-4 text-center">Group Projects</h2>
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Team-built projects with a live website and a dedicated project explanation page.
-          </p>
+          <SectionHeading
+            index="02"
+            eyebrow="Collaboration"
+            title="Team Projects"
+            description="Team-built projects with a live website and a dedicated project explanation page."
+          />
           <div className="grid md:grid-cols-2 gap-6">
             {groupProjects.map((project) => (
               <Link
@@ -237,17 +356,17 @@ export default function Home() {
                 rel={project.external ? "noopener noreferrer" : undefined}
                 className="block"
               >
-                <Card className="group h-full overflow-hidden hover:border-primary transition-all duration-300 cursor-pointer">
-                  <div className="relative h-48 overflow-hidden">
+                <Card className={`${cardHover} h-full overflow-hidden pt-0`}>
+                  <div className="relative h-48 overflow-hidden border-b border-border">
                     <Image
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     />
                   </div>
                   <CardHeader>
-                    <div className="mb-2 h-11 w-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                    <div className={iconTile}>
                       {project.type === "website" ? (
                         <Globe className="h-5 w-5" />
                       ) : project.type === "github" ? (
@@ -259,22 +378,22 @@ export default function Home() {
                     <CardTitle className="flex items-center justify-between gap-4">
                       <span>{project.title}</span>
                       {project.external ? (
-                        <ExternalLink className="h-4 w-4 text-primary shrink-0" />
+                        <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-brand transition-colors shrink-0" />
                       ) : (
-                        <ArrowRight className="h-4 w-4 text-primary shrink-0" />
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-brand transition-colors shrink-0" />
                       )}
                     </CardTitle>
-                    <CardDescription>{project.description}</CardDescription>
+                    <CardDescription className="leading-relaxed">{project.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-[10px] px-2 py-0.5">
+                        <Badge key={tag} variant="outline" className={tagStyle}>
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    <p className="text-sm text-primary font-medium inline-flex items-center">
+                    <p className={ctaStyle}>
                       {project.cta}
                       {project.external ? (
                         <ExternalLink className="ml-2 h-4 w-4" />
@@ -291,12 +410,14 @@ export default function Home() {
       </section>
 
       {/* My Projects Section */}
-      <section id="projects" className="py-20 px-6">
+      <section id="projects" className="py-24 px-6 border-t border-border/70">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold mb-4 text-center">My Projects</h2>
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            A showcase of my recent work in quantitative finance, computer vision, and web technologies.
-          </p>
+          <SectionHeading
+            index="03"
+            eyebrow="Selected work"
+            title="Independent Projects"
+            description="A showcase of my recent work in quantitative finance, computer vision, and web technologies."
+          />
           <div className="grid md:grid-cols-3 gap-6">
             {completedProjects.map((project) => (
               <Link
@@ -306,30 +427,30 @@ export default function Home() {
                 rel={project.external ? "noopener noreferrer" : undefined}
                 className="block"
               >
-                <Card className="group hover:border-primary transition-all duration-300 h-full cursor-pointer">
-                  <div className="relative h-48 overflow-hidden rounded-t-lg">
+                <Card className={`${cardHover} h-full overflow-hidden pt-0`}>
+                  <div className="relative h-48 overflow-hidden border-b border-border">
                     <Image
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     />
                   </div>
                   <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
+                    <CardTitle className="flex items-center justify-between gap-4">
                       {project.title}
                       {project.external ? (
-                        <ExternalLink className="h-4 w-4 text-primary" />
+                        <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-brand transition-colors shrink-0" />
                       ) : (
-                        <ArrowRight className="h-4 w-4 text-primary" />
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-brand transition-colors shrink-0" />
                       )}
                     </CardTitle>
-                    <CardDescription>{project.description}</CardDescription>
+                    <CardDescription className="leading-relaxed">{project.description}</CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="mt-auto">
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs">
+                        <Badge key={tag} variant="outline" className={tagStyle}>
                           {tag}
                         </Badge>
                       ))}
@@ -343,78 +464,47 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 bg-card/30">
+      <section id="about" className="py-24 px-6 border-y border-border/70 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold mb-12 text-center">About Me</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-xl font-semibold mb-4 text-primary">Education</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold">University of Pennsylvania</h4>
-                  <p className="text-muted-foreground">M.S. in Engineering in Artificial Intelligence</p>
-                  <p className="text-sm text-muted-foreground">Aug 2026 - Present</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold">University of California, Irvine</h4>
-                  <p className="text-muted-foreground">B.S. in Computer Science</p>
-                  <p className="text-sm text-muted-foreground">Completed June 2026</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Glendale Community College</h4>
-                  <p className="text-muted-foreground">Computer Science Major</p>
-                  <p className="text-sm text-muted-foreground">President of Robotics Club</p>
-                </div>
+          <SectionHeading index="04" eyebrow="Background" title="About" />
+          <div className="grid md:grid-cols-2 gap-6 items-start">
+            {[
+              { heading: "Education", icon: GraduationCap, items: education },
+              { heading: "Experience", icon: Briefcase, items: experience },
+            ].map(({ heading, icon: Icon, items }) => (
+              <div key={heading} className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm">
+                <h3 className="mb-6 flex items-center gap-3 text-lg font-semibold">
+                  <span className={iconTile}>
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  {heading}
+                </h3>
+                <ol className="relative space-y-7 border-l border-border pl-6">
+                  {items.map((item) => (
+                    <li key={item.title} className="relative">
+                      <span className="absolute -left-[29px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-card bg-brand ring-4 ring-brand/15" />
+                      <h4 className="font-semibold leading-snug">{item.title}</h4>
+                      <p className="text-muted-foreground">{item.subtitle}</p>
+                      <p className="mt-1 font-mono text-xs text-muted-foreground/80">{item.date}</p>
+                      {item.description && (
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-2">{item.description}</p>
+                      )}
+                    </li>
+                  ))}
+                </ol>
               </div>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-4 text-primary">Experience</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold">Software Developer</h4>
-                  <p className="text-muted-foreground">
-                    American Verification Processing Solutions | July 2026 - Present
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Develop production software for merchant batch and chargeback data workflows across bank-specific
-                    parsing, validation, previews, and CRM submission.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Software Engineer</h4>
-                  <p className="text-muted-foreground">Bizskip | Feb 2026 - May 2026</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Built React and Next.js workflows for local business discovery, waitlists, provider listings, and
-                    dashboards.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Research Computing Assistant</h4>
-                  <p className="text-muted-foreground">Caltech | July 2024 - Sept 2024</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Maintained research IT systems, optimized CMS performance, and managed Data Center operations.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Data Structures & Linear Algebra Tutor</h4>
-                  <p className="text-muted-foreground">GCC Learning Center | Aug 2022 - Jul 2024</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Delivered personalized math tutoring and developed educational materials for students.
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="mt-12">
-            <h3 className="text-xl font-semibold mb-4 text-primary">Skills & Technologies</h3>
+            <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Technical Skills</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {skills.map((skill) => (
                 <div
                   key={skill.name}
-                  className="group rounded-xl border border-border bg-background px-4 py-3 transition-all duration-300 hover:border-primary/50 hover:shadow-sm"
+                  className="group rounded-xl border border-border bg-card px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-lg border border-border bg-muted flex items-center justify-center shrink-0">
+                    <div className="h-10 w-10 rounded-lg border border-border bg-muted/60 flex items-center justify-center shrink-0 transition-colors group-hover:border-brand/30">
                         {skill.logoUrl ? (
                           <img src={skill.logoUrl} alt={`${skill.name} logo`} className="h-6 w-6 object-contain" />
                         ) : skill.icon ? (
@@ -437,52 +527,59 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            I'm currently looking for new opportunities and collaborations. Whether you have a question or just want to
-            say hi, feel free to reach out!
-          </p>
-          <div className="flex flex-col gap-4 justify-center mb-8">
-            <Button asChild size="lg" className="mx-auto">
-              <a href="mailto:vardankeshishyan1@gmail.com">
-                <Mail className="mr-2 h-4 w-4" />
-                Email Me
-              </a>
-            </Button>
-            <div className="text-muted-foreground space-y-2">
-              <p className="text-sm">
-                <span className="font-semibold">Email:</span> vardankeshishyan1@gmail.com
-              </p>
-              <p className="text-sm">
-                <span className="font-semibold">Phone:</span> (747) 231-9907
-              </p>
+      <section id="contact" className="py-24 px-6">
+        <div className="container mx-auto max-w-4xl">
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-14 text-center shadow-sm md:px-12">
+            <div className="pointer-events-none absolute inset-0 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+            <div className="pointer-events-none absolute -top-24 left-1/2 h-48 w-2/3 -translate-x-1/2 rounded-full bg-brand/15 blur-3xl" />
+            <div className="relative">
+              <SectionHeading
+                index="05"
+                eyebrow="Contact"
+                title="Let's Connect"
+                description="I'm currently looking for new opportunities and collaborations. Whether you have a question or just want to say hi, feel free to reach out!"
+              />
+              <div className="-mt-4 flex flex-col gap-6 justify-center mb-8">
+                <Button asChild size="lg" className="mx-auto">
+                  <a href="mailto:vardankeshishyan1@gmail.com">
+                    <Mail className="mr-2 h-4 w-4" />
+                    Email Me
+                  </a>
+                </Button>
+                <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-6 text-sm text-muted-foreground">
+                  <p>
+                    <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground/70">Email</span>{" "}
+                    <a href="mailto:vardankeshishyan1@gmail.com" className="text-foreground hover:text-brand transition-colors">
+                      vardankeshishyan1@gmail.com
+                    </a>
+                  </p>
+                  <p>
+                    <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground/70">Phone</span>{" "}
+                    <a href="tel:+17472319907" className="text-foreground hover:text-brand transition-colors">
+                      (747) 231-9907
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-3 justify-center">
+                {[
+                  { href: "https://github.com/VardanKeshishyan", label: "GitHub", icon: Github, external: true },
+                  { href: "https://www.linkedin.com/in/vardan-keshishyan-9734961b5/", label: "LinkedIn", icon: Linkedin, external: true },
+                  { href: "mailto:vardankeshishyan1@gmail.com", label: "Email", icon: Mail, external: false },
+                ].map(({ href, label, icon: Icon, external }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
+                    className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-background text-muted-foreground transition-colors hover:border-brand/40 hover:text-brand"
+                  >
+                    <Icon className="h-5 w-5" />
+                    <span className="sr-only">{label}</span>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="flex gap-6 justify-center">
-            <a
-              href="https://github.com/VardanKeshishyan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              <Github className="h-6 w-6" />
-              <span className="sr-only">GitHub</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/vardan-keshishyan-9734961b5/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              <Linkedin className="h-6 w-6" />
-              <span className="sr-only">LinkedIn</span>
-            </a>
-            <a href="mailto:vardankeshishyan1@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
-              <Mail className="h-6 w-6" />
-              <span className="sr-only">Email</span>
-            </a>
           </div>
         </div>
       </section>
@@ -493,13 +590,13 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">© 2026 Vardan Keshishyan.</p>
             <div className="flex gap-4">
-              <Link href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 About
               </Link>
-              <Link href="#projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                My Projects
+              <Link href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Projects
               </Link>
-              <Link href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Contact
               </Link>
             </div>
